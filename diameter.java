@@ -31,7 +31,7 @@ public class diameter {
         }
         
 	}
-	public static BinaryTreeNode<Integer> takeInput(Scanner s)
+	public static BinaryTreeNode<Integer> takeInput(Scanner s)//adding Scanner in input since we don't want recursion to create a new Scanner everytime
 	{System.out.println("Enter the root data");
 	int a=s.nextInt();//Taking the data of the node
 	if(a==-1)
@@ -44,17 +44,17 @@ public class diameter {
 	
 	public static int height(BinaryTreeNode<Integer>root)
 	{
-	  if(root==null)
+	  if(root==null)//base case 
 		  return 0;
-	  return 1+Math.max(height(root.left), height(root.right));
+	  return 1+Math.max(height(root.left), height(root.right));//adding 1 to the max between the height returned from left and right tree
 	}
 	public static int diameter(BinaryTreeNode<Integer> root)
 	{
-		if(root==null)
+		if(root==null)//base case
 			return 0;
-		int option1=height(root.left)+height(root.right);
-		int option2=diameter(root.left);
-		int option3=diameter(root.right);
+		int option1=height(root.left)+height(root.right);//case1 where the max distance is between last left and last right node
+		int option2=diameter(root.left);//case2 where max distance is between 2 nodes in the left tree
+		int option3=diameter(root.right);//case 3 where max distance is between 2 nodes in the right tree
 		return Math.max(option1, Math.max(option2, option3));
 	}
 
