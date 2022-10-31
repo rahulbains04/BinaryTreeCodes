@@ -7,23 +7,23 @@ import java.util.Scanner;
 public class isBST2 {
 
 	public static Pair<Boolean,Pair<Integer,Integer>>isBST2(BinaryTreeNode<Integer> root)
-	{if(root==null)
+	{if(root==null)//base case
 	{
 		Pair<Boolean,Pair<Integer,Integer>>output=new Pair<>();
 		output.first=true;
 		output.second=new Pair<>();
-		output.second.first=Integer.MAX_VALUE;
-		output.second.second=Integer.MIN_VALUE;
+		output.second.first=Integer.MAX_VALUE;//assigning min value
+		output.second.second=Integer.MIN_VALUE;//assigning max value
 		return output;
 	}
-	Pair<Boolean, Pair<Integer,Integer>>leftOutput=isBST2(root.left);
-	Pair<Boolean, Pair<Integer,Integer>>rightOutput=isBST2(root.right);
-	int min=Math.min(root.data,Math.min(leftOutput.second.first,rightOutput.second.first));
-	int max=Math.max(root.data,Math.max(leftOutput.second.second,rightOutput.second.second));
-	boolean isBST=(root.data>leftOutput.second.second)&&
-			(root.data<rightOutput.second.first)&&
-			leftOutput.first&&
-			rightOutput.first;
+	Pair<Boolean, Pair<Integer,Integer>>leftOutput=isBST2(root.left);//left recursion
+	Pair<Boolean, Pair<Integer,Integer>>rightOutput=isBST2(root.right);//right recursion
+	int min=Math.min(root.data,Math.min(leftOutput.second.first,rightOutput.second.first));//min in whole tree
+	int max=Math.max(root.data,Math.max(leftOutput.second.second,rightOutput.second.second));//max in whole tree
+	boolean isBST=(root.data>leftOutput.second.second)&&//checking if the root value is greater than max from left tree
+			(root.data<rightOutput.second.first)&&//checking if the root value is smaller than min from right tree
+			leftOutput.first&&//checking if left subtree is BST
+			rightOutput.first;//checking if right subtree is BST
 	Pair<Boolean,Pair<Integer,Integer>>output=new Pair<>();
 	output.first=isBST;
 	output.second=new Pair<>();

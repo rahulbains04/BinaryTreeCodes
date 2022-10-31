@@ -7,13 +7,14 @@ import java.util.Scanner;
 public class isBST3 {
 	public static boolean isBST3(BinaryTreeNode<Integer>root,int min,int max)
 	{
-		if(root==null)
+		if(root==null)//base case
 			return true;
-		if(root.data>min&&root.data<=max)
+		if(root.data>min&&root.data<=max)//comparing root to the min and max values
 		{
-		boolean b=isBST3(root.left, min, root.data-1);
-		boolean c=isBST3(root.right, root.data, max);
-		return b&&c;}
+		boolean b=isBST3(root.left, min, root.data-1);//left recursion
+		boolean c=isBST3(root.right, root.data, max);//right recursion
+		return b&&c;//isBST if both are true
+		}
 		else
 		return false;
 	}
