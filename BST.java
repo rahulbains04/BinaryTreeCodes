@@ -16,13 +16,13 @@ public class BST {
 private BinaryTreeNode<Integer> root;
 private boolean hasDataHelper(int data,BinaryTreeNode<Integer> root)
 {
-if(root==null)
+if(root==null)//side case
 	return false;
-if(root.data==data)
+if(root.data==data)//base case
 	return true;
-else if(data>root.data)
+else if(data>root.data)//search on right if the data is greater than root
 	return hasDataHelper(data,root.right);
-else
+else//search on left is data is smaller
 	return hasDataHelper(data,root.left);
 }
 public  boolean hasData(int data)
@@ -32,17 +32,17 @@ public  boolean hasData(int data)
 
 
 private BinaryTreeNode<Integer> insertHelper(int data,BinaryTreeNode<Integer> root)
-{if(root==null)
+{if(root==null)//base case
 {
 	BinaryTreeNode<Integer> newNode=new BinaryTreeNode<Integer>(data);
 	return newNode;
 }
-if(root.data<data)
+if(root.data<data)//insert on right is data is larger
 {
 	root.right= insertHelper(data, root.right);
 
 }
-else
+else//insert on left is data is smaller or equal
 {
 	
 		root.left= insertHelper(data, root.left);
@@ -58,9 +58,9 @@ public void insert(int data)
 
 public BinaryTreeNode<Integer> findSmallest(BinaryTreeNode<Integer> root)
 {
-	if(root==null)
+	if(root==null)//base case
 		return null;
-	if(root.left==null)
+	if(root.left==null)//smaller is on left only 
 		return root;
 	else
 		return findSmallest(root.left);
@@ -69,9 +69,9 @@ public BinaryTreeNode<Integer> findSmallest(BinaryTreeNode<Integer> root)
 
 private BinaryTreeNode<Integer> delete(int data,BinaryTreeNode<Integer> root)
 {
-	if(root==null)
+	if(root==null)//base case
 		return null;
-	if(root.data==data)
+	if(root.data==data)//major case
 	{
 		if(root.right==null&&root.left==null)
 			return null;
@@ -79,23 +79,23 @@ private BinaryTreeNode<Integer> delete(int data,BinaryTreeNode<Integer> root)
 			return root.left;
 		else if(root.left==null)
 			return root.right;
-		else
+		else//when both children nodes are alive
 		{
-		BinaryTreeNode<Integer>temp2=findSmallest(root.right);
-		root.data=temp2.data;
-		root.right=delete(temp2.data,root.right);
+		BinaryTreeNode<Integer>temp2=findSmallest(root.right);//smallest in the right subtree can be the newNode or largest in the left
+		root.data=temp2.data;//switching data values
+		root.right=delete(temp2.data,root.right);//deleting the duplicate node
 		return root;
 			
 		}
 			
 	}
-	else if(root.data<data)
+	else if(root.data<data)//look in right if larger
 	{
 		root.right=delete(data,root.right);
 		return root;
 		
 	}
-	else
+	else//look in left if smaller
 	{
 		root.left=delete(data,root.right);
 		return root;
@@ -111,14 +111,14 @@ public void delete(int data)
 }
 
 private void printTree(BinaryTreeNode<Integer> root) {
-	if(root==null)
+	if(root==null)//base case
 		return;
 	System.out.print(root.data);
-	if(root.left!=null)
+	if(root.left!=null)//if left part alive 
 		System.out.print(":L:"+root.left.data);
-	if(root.right!=null)
+	if(root.right!=null)//if right alive
 		System.out.print(",R:"+root.right.data);
-	System.out.println();
+	System.out.println();//for line enter after the root and children print
 	printTree(root.left);
 	printTree(root.right);
 }
